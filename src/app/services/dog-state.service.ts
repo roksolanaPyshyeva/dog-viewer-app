@@ -1,5 +1,6 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { DogImage, DogService } from './dog.service';
+import { catchError, EMPTY, take } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class DogStateService {
@@ -17,9 +18,17 @@ export class DogStateService {
 
   loadDogs(): void {
     this.loading.set(true);
-    this.dogService.getRandomImages(11).subscribe((dogs) => {
+    this.dogService.getRandomImages(10)
+    .pipe(
+      take(1),
+      catchError(() => {
+        this.loading.set(false)
+        return EMPTY;
+      }),
+    )
+    .subscribe((dogs) => {
       this.mainDog.set(dogs[0]);
-      this.thumbnails.set(dogs.slice(1));
+      this.thumbnails.set(dogs);
       this.loading.set(false);
     });
   }
