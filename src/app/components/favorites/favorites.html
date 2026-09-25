@@ -1,0 +1,20 @@
+<aside class="favorites">
+  <h2 class="favorites__title">Favorites</h2>
+  @if (dogStateService.favorites().length === 0) {
+    <p class="favorites__empty">No favorites yet.<br />Click "Add to Favorites" to save a dog!</p>
+  }
+  <ul class="favorites__list">
+    @for (dog of dogStateService.favorites(); track dog.url) {
+      <li class="favorites__item" (click)="onDogSelected(dog)">
+        <img [src]="dog.url" [alt]="dog.breed" class="favorites__img" />
+        <span class="favorites__breed">{{ dog.breed }}</span>
+        <button
+          class="favorites__remove-btn"
+          (click)="onFavoriteremoved(dog)"
+          title="Remove from favorites"
+          [attr.aria-label]="'Remove ' + dog.breed + ' from favorites'"
+        >✕</button>
+      </li>
+    }
+  </ul>
+</aside>

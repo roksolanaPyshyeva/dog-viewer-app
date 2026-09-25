@@ -1,0 +1,17 @@
+@if (dogStateService.mainDog(); as dog) {
+  <section class="main-image">
+    <div class="main-image__card">
+      <img [src]="dog.url" [alt]="dog.breed" class="main-image__img" />
+      <div class="main-image__footer">
+        <span class="main-image__breed">{{ dog.breed }}</span>
+        <button
+          class="main-image__btn"
+          [class.main-image__btn--favorited]="dogStateService.isCurrentFavorited()"
+          (click)="onToggleFavorite()"
+        >
+          {{ dogStateService.isCurrentFavorited() ? '♥ Favorited' : '♡ Add to Favorites' }}
+        </button>
+      </div>
+    </div>
+  </section>
+}

@@ -1,0 +1,11 @@
+<section class="thumbnails">
+  <h2 class="thumbnails__title">More Dogs</h2>
+  <div class="thumbnails__grid">
+    @for (dog of dogStateService.thumbnails(); track dog.url) {
+      <button class="thumbnails__card" (click)="onDogSelected(dog)">
+        <img [src]="dog.url" [alt]="dog.breed" class="thumbnails__img" />
+        <span class="thumbnails__breed">{{ dog.breed }}</span>
+      </button>
+    }
+  </div>
+</section>
